@@ -4,7 +4,7 @@
 
 """
 This tool provides the player with a high-level analysis of their tournament performance.
-@author: Muna Nwana (Infernape)
+@author: Muna N (Infernape)
 """
 
 import pandas as pd
