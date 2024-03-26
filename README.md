@@ -3,7 +3,7 @@ SSBU: High Level Tournament Analytics
 
 This tool provides the player with a high-level analysis of their tournament performance. By filling out the spreadsheet template and running the code attached in this package, a player can view KPIs and specific character matchup data from their past online and offline tournaments (most if not all of this can be found on https://smashdata.gg/ and typing in your previous player tags). The goal of this is not only an exercise in gathering/visualizing your data, but also for players to have an even more granular view of their results and performance against certain characters.
 
-In addition to the main script (Tourney Analysis.py), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx) along with a blank template (Tourney Data Template.xlsx), in addition to a helper script that pulls your offline data only (Offline Transform.py) and a secondary script that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters (Bracket Calc.py).
+In addition to the main script (Tourney Analysis.py), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx). There is also a blank template (Tourney Data Template.xlsx), in addition to a helper script that pulls your offline data (Offline Transform.py) and saves that data into its own table (Offline Data.xlsx) and a secondary script that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters (Bracket Calc.py).
 
 General Information for Filling Out the Template
 
