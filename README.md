@@ -19,9 +19,9 @@ General Information for Filling Out the Template
 •	Sweeps → The number of sets you play in a tournament that are either 2-0 or 3-0 (either in your favor or against you)
 •	Chars_Won → This is the list of characters you beat in a tournament, None if you didn't beat anyone
 •	Chars_Lost  → This is the list of characters you lost to in a tournament, None if you beat everyone
-•	Tourney_Win  This indicates whether you won the tournament or not
-•	Offline  This indicates whether the tournament played was offline or not
-•	Top_8  This indicates whether or not the player made Top 8 at this bracket
+•	Tourney_Win → This indicates whether you won the tournament or not
+•	Offline → This indicates whether the tournament played was offline or not
+•	Top_8 → This indicates whether or not the player made Top 8 at this bracket
 
 * Criteria for wins and Losses: If you beat someone game 1 and they switch characters to win the set, the character you beat goes into the beaten column. If you win game 1, they don't switch, and they win the set, then that goes into the loss column. Otherwise, everything else is pretty straightforward.
 KPIs
