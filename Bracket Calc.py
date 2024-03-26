@@ -19,7 +19,7 @@ from sklearn import metrics
 
 
 
-df = pd.read_excel('Offline Data.xlsx')
+df = pd.read_excel('Tourney Data.xlsx')
 
 #train/test split
 x = df['Chars_All']
