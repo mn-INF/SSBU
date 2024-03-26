@@ -57,6 +57,3 @@ Housekeeping
 •	Within the quotation marks on the read_excel call, put the name of your spreadsheet. This is whatever you save the Excel spreadsheet as, but make sure to keep it in .xlsx format.
 •	For recording the characters used against you, be sure to follow the criteria above.
 •	To track an individual stat, you can just remove the apostrophes around lines 132-136. To make sure that it doesn’t get displayed, put 3 apostrophes before line 132 and 3 more after line 136.
-
-
-![image](https://github.com/mn-INF/SSBU/assets/164985907/d1ace108-11d9-4a6b-a4d4-667b8c3db272)
