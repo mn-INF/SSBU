@@ -64,7 +64,7 @@ print()
 
 #creating a sample bracket of characters you play in bracket
 
-bracket_str = 'Link, Sephiroth, Snake, Lucario'
+bracket_str = input('Please enter the list of characters you will play against: ')
 
 bracket_calc = model.predict(fitted_vectorizer.transform([bracket_str]))
 bracket_p = model.predict_proba(fitted_vectorizer.transform([bracket_str]))[0][1]
@@ -72,6 +72,5 @@ bracket_p = model.predict_proba(fitted_vectorizer.transform([bracket_str]))[0][1
 print('The characters in your bracket path are:', bracket_str)
 print('Top 8 Prediction:', bracket_calc, 'with a success probability of:',
       round((bracket_p * 100),2))
-
 
 
