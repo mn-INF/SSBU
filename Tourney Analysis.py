@@ -181,14 +181,21 @@ for l in losses_dict.keys():
 percentage_dict.pop('None')
 sorted_p = dict(sorted(percentage_dict.items(), key = operator.itemgetter(1), reverse = True))
 
-
-#Next step: using TFIDF vectorization on character data to predict KPIs
-
+#color-coding our character matchup graph
+col = []
+for val in sorted_p.values():
+    if val > 0.5:
+        col.append('green')
+    elif val == 0.5:
+        col.append('blue')
+    else:
+        col.append('grey')
+        
 fig, ax = plt.subplots(1,1, figsize = (100,10))
 fig.subplots_adjust(wspace= 80, hspace= 0.3)
 
 plt.axhline(0.5, 0, len(sorted_p), color='red', linewidth=2, label = "50% Win Percentage")
-plt.bar(sorted_p.keys(), sorted_p.values())
+plt.bar(sorted_p.keys(), sorted_p.values(), color = col)
 plt.xlabel("Character")
 plt.ylabel("Win Percentage")
 plt.title("Character Matchup Chart")
