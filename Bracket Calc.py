@@ -8,6 +8,7 @@ given a certain selection of characters.
 
 #import statements
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -27,17 +28,26 @@ y = df['Top_8']
 
 
 X_train, X_test, y_train, y_test = train_test_split(x, y, 
-                                                               test_size=0.25, 
-                                                               random_state=0)
+                                                test_size=0.25, 
+                                                random_state=0)
 
 
 #TFIDF-vectorizing the list of characters we play
-tfidf = TfidfVectorizer(sublinear_tf=True, min_df=1,
+tvec = TfidfVectorizer(sublinear_tf=True, min_df=5,
                         ngram_range=(1, 2), 
                         stop_words='english')
 
-fitted_vectorizer = tfidf.fit(X_train)
+
+fitted_vectorizer = tvec.fit(X_train)
 tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
+
+#just seeing if we can visualize this
+'''
+tvec_weights = tvec.fit_transform(X_train)
+weights = np.asarray(tvec_weights.mean(axis=0)).ravel().tolist()
+weights_df = pd.DataFrame({'term': tvec.get_feature_names_out(), 'weight': weights})
+weights_df.to_csv('TFIDF_train.csv')'''
+
 
 #using a binary classification model
 model = RandomForestClassifier(random_state=0)
