@@ -65,7 +65,7 @@ fig, ax = plt.subplots(figsize=(8,8))
 sns.heatmap(conf_mat, annot=True, cmap="Blues", fmt='d')
 plt.ylabel('Actual')
 plt.xlabel('Predicted')
-plt.title("CONFUSION MATRIX - Top 8 Predictor (Logistic Regression)", size=16)
+plt.title("CONFUSION MATRIX - Top 8 Predictor (Random Forest)", size=16)
 plt.show()
 print()
 
