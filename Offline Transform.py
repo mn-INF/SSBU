@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This tool extracts data from all offline tournaments from a player's data.
-@author: Muna Nwana (Infernape)
+@author: Muna N (Infernape)
 """
 
 import pandas as pd
