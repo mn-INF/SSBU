@@ -3,7 +3,7 @@
 """
 This tool predicts your chances of making top 8 at a bracket
 given a certain selection of characters.
-@author: Muna N (Infernape)
+@author: Muna Nwana (Infernape)
 """
 
 #import statements
@@ -11,7 +11,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
@@ -19,7 +18,7 @@ from sklearn import metrics
 
 
 
-df = pd.read_excel('Tourney Data.xlsx')
+df = pd.read_excel('Offline Data.xlsx')
 
 #train/test split
 x = df['Chars_All']
@@ -28,7 +27,7 @@ y = df['Top_8']
 
 
 X_train, X_test, y_train, y_test = train_test_split(x, y, 
-                                                               test_size=0.3, 
+                                                               test_size=0.25, 
                                                                random_state=0)
 
 
@@ -40,9 +39,8 @@ tfidf = TfidfVectorizer(sublinear_tf=True, min_df=1,
 fitted_vectorizer = tfidf.fit(X_train)
 tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
 
-#using a logistic regression model
-#model = RandomForestClassifier(max_depth=2, random_state=0)
-model = LogisticRegression(random_state=0)
+#using a binary classification model
+model = RandomForestClassifier(random_state=0)
 model.fit(tfidf_vectorizer_vectors, y_train)
 y_pred = model.predict(fitted_vectorizer.transform(X_test))
 
@@ -72,5 +70,4 @@ bracket_p = model.predict_proba(fitted_vectorizer.transform([bracket_str]))[0][1
 print('The characters in your bracket path are:', bracket_str)
 print('Top 8 Prediction:', bracket_calc, 'with a success probability of:',
       round((bracket_p * 100),2))
-
 
