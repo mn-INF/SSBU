@@ -24,7 +24,7 @@ General Information for Filling Out the Template
 •	Top_8 → This indicates whether or not the player made Top 8 at this bracket
 
 * Criteria for wins and Losses: If you beat someone game 1 and they switch characters to win the set, the character you beat goes into the beaten column. If you win game 1, they don't switch, and they win the set, then that goes into the loss column. Otherwise, everything else is pretty straightforward.
-* 
+  
 KPIs
 
 Key Performance Indicators (KPIs) are the main metrics that are used to determine overall tournament performance. They are:
