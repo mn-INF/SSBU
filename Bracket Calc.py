@@ -3,7 +3,7 @@
 """
 This tool predicts your chances of making top 8 at a bracket
 given a certain selection of characters.
-@author: Muna Nwana (Infernape)
+@author: Muna N (Infernape)
 """
 
 #import statements
