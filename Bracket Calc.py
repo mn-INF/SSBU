@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import make_pipeline
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 from sklearn import metrics
@@ -28,7 +29,7 @@ y = df['Top_8']
 
 
 X_train, X_test, y_train, y_test = train_test_split(x, y, 
-                                                test_size=0.25, 
+                                                test_size=0.3, 
                                                 random_state=0)
 
 
@@ -38,21 +39,23 @@ tvec = TfidfVectorizer(sublinear_tf=True, min_df=5,
                         stop_words='english')
 
 
+model = make_pipeline(tvec, RandomForestClassifier(random_state=0))
+model.fit(X_train, y_train)
+
 fitted_vectorizer = tvec.fit(X_train)
 tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
 
 #just seeing if we can visualize this
-'''
+
 tvec_weights = tvec.fit_transform(X_train)
 weights = np.asarray(tvec_weights.mean(axis=0)).ravel().tolist()
 weights_df = pd.DataFrame({'term': tvec.get_feature_names_out(), 'weight': weights})
-weights_df.to_csv('TFIDF_train.csv')'''
+weights_df.to_csv('TFIDF_train.csv')
 
 
 #using a binary classification model
-model = RandomForestClassifier(random_state=0)
-model.fit(tfidf_vectorizer_vectors, y_train)
-y_pred = model.predict(fitted_vectorizer.transform(X_test))
+
+y_pred = model.predict(X_test)
 
 #full classification metrics report
 print('\t\t\t\tCLASSIFICATIION METRICS\n')
@@ -73,11 +76,9 @@ print()
 #creating a sample bracket of characters you play in bracket
 
 bracket_str = input('Please enter the list of characters you will play against: ')
-
-bracket_calc = model.predict(fitted_vectorizer.transform([bracket_str]))
-bracket_p = model.predict_proba(fitted_vectorizer.transform([bracket_str]))[0][1]
+bracket_calc = model.predict([bracket_str])
+bracket_p = model.predict_proba([bracket_str])[0][1]
 
 print('The characters in your bracket path are:', bracket_str)
 print('Top 8 Prediction:', bracket_calc, 'with a success probability of:',
       round((bracket_p * 100),2))
-
