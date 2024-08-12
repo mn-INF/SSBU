@@ -10,7 +10,6 @@ This tool provides the player with a high-level analysis of their tournament per
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 import operator
 
 df = pd.read_excel("Tourney Data.xlsx")
@@ -138,9 +137,6 @@ plt.show()
 
 #character matchup analysis visualization
 
-wins = df.Chars_Won.str.join('|').str.get_dummies().add_prefix('win_')
-losses = df.Chars_Lost.str.join('|').str.get_dummies().add_prefix('loss_')
-
 wins_dict = dict()
 
 for chars in df['Chars_Won']:
@@ -181,6 +177,9 @@ for l in losses_dict.keys():
 percentage_dict.pop('None')
 sorted_p = dict(sorted(percentage_dict.items(), key = operator.itemgetter(1), reverse = True))
 
+
+#Next step: using TFIDF vectorization on character data to predict KPIs
+
 #color-coding our character matchup graph
 col = []
 for val in sorted_p.values():
@@ -190,7 +189,7 @@ for val in sorted_p.values():
         col.append('blue')
     else:
         col.append('grey')
-        
+
 fig, ax = plt.subplots(1,1, figsize = (100,10))
 fig.subplots_adjust(wspace= 80, hspace= 0.3)
 
