@@ -5,7 +5,6 @@ This tool predicts your chances of making top 8 at a bracket
 given a certain selection of characters.
 @author: Muna N (Infernape)
 """
-
 #import statements
 import pandas as pd
 import numpy as np
@@ -22,11 +21,8 @@ from sklearn.metrics import confusion_matrix
 import seaborn as sns
 from sklearn import metrics
 
-
-
 df = pd.read_excel('Tourney Data.xlsx')
 
-'''
 #text preprocessing
 #nltk.download('all')
 
@@ -51,7 +47,6 @@ for i in range(len(text)):
 #assign corpus to df['Chars_All']
 
 df['Chars_All'] = corpus
-'''
 
 #train/test split
 x = df['Chars_All']
