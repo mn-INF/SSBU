@@ -10,6 +10,10 @@ given a certain selection of characters.
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import nltk
+import re
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -20,7 +24,34 @@ from sklearn import metrics
 
 
 
-df = pd.read_excel('Offline Data.xlsx')
+df = pd.read_excel('Tourney Data.xlsx')
+
+'''
+#text preprocessing
+#nltk.download('all')
+
+# create a list text
+
+text = list(df['Chars_All'])
+
+# preprocessing loop
+lemmatizer = WordNetLemmatizer()
+corpus = []
+
+for i in range(len(text)):
+
+    r = re.sub('[^a-zA-Z]', ' ', text[i])
+    r = r.lower()
+    r = r.split()
+    r = [word for word in r if word not in stopwords.words('english')]
+    r = [lemmatizer.lemmatize(word) for word in r]
+    r = ' '.join(r)
+    corpus.append(r)
+
+#assign corpus to df['Chars_All']
+
+df['Chars_All'] = corpus
+'''
 
 #train/test split
 x = df['Chars_All']
@@ -34,11 +65,11 @@ X_train, X_test, y_train, y_test = train_test_split(x, y,
 
 
 #TFIDF-vectorizing the list of characters we play
-tvec = TfidfVectorizer(sublinear_tf=True, min_df=5,
+tvec = TfidfVectorizer(sublinear_tf=True, min_df=2,
                         ngram_range=(1, 2), 
                         stop_words='english')
 
-
+#creating pipeline with the vectorizer and the classification model
 model = make_pipeline(tvec, RandomForestClassifier(random_state=0))
 model.fit(X_train, y_train)
 
@@ -46,14 +77,14 @@ fitted_vectorizer = tvec.fit(X_train)
 tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
 
 #just seeing if we can visualize this
-
+'''
 tvec_weights = tvec.fit_transform(X_train)
 weights = np.asarray(tvec_weights.mean(axis=0)).ravel().tolist()
 weights_df = pd.DataFrame({'term': tvec.get_feature_names_out(), 'weight': weights})
 weights_df.to_csv('TFIDF_train.csv')
+'''
 
-
-#using a binary classification model
+#uaking predictions with the model
 
 y_pred = model.predict(X_test)
 
