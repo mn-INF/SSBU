@@ -5,23 +5,28 @@ This tool predicts your chances of making top 8 at a bracket
 given a certain selection of characters.
 @author: Muna N (Infernape)
 """
+
 #import statements
 import pandas as pd
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
-import nltk
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import svm
+#from sklearn.model_selection import GridSearchCV 
+#from sklearn.model_selection import RandomizedSearchCV
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 from sklearn import metrics
 
-df = pd.read_excel('Tourney Data.xlsx')
+df = pd.read_excel('Offline Data.xlsx')
 
 #text preprocessing
 #nltk.download('all')
@@ -48,6 +53,7 @@ for i in range(len(text)):
 
 df['Chars_All'] = corpus
 
+
 #train/test split
 x = df['Chars_All']
 
@@ -64,12 +70,35 @@ tvec = TfidfVectorizer(sublinear_tf=True, min_df=2,
                         ngram_range=(1, 2), 
                         stop_words='english')
 
-#creating pipeline with the vectorizer and the classification model
-model = make_pipeline(tvec, RandomForestClassifier(random_state=0))
-model.fit(X_train, y_train)
+#Our list of models to choose from
+models = {"Logistic Regression": LogisticRegression(random_state=0),
+          "Random Forest": RandomForestClassifier(random_state=0),
+          "SVM": svm.SVC(random_state=0),
+          "Decision Tree": DecisionTreeClassifier(criterion="entropy",
+             max_depth=5, random_state=0)}
+
+#hyperparamter tuning (random forest)
+'''
+param_grid = { 
+    'n_estimators': [25, 50, 100, 150], 
+    'max_features': ['sqrt', 'log2', None], 
+    'max_depth': [3, 6, 9], 
+    'max_leaf_nodes': [3, 6, 9], 
+} 
+
+grid_search = GridSearchCV(RandomForestClassifier(), 
+                           param_grid=param_grid)
 
 fitted_vectorizer = tvec.fit(X_train)
 tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
+ 
+grid_search.fit(tfidf_vectorizer_vectors, y_train) 
+print(grid_search.best_estimator_) 
+'''
+
+#creating pipeline with the vectorizer and the classification model
+model = make_pipeline(tvec, models['Random Forest'])
+model.fit(X_train, y_train)
 
 #just seeing if we can visualize this
 '''
@@ -94,7 +123,7 @@ fig, ax = plt.subplots(figsize=(8,8))
 sns.heatmap(conf_mat, annot=True, cmap="Blues", fmt='d')
 plt.ylabel('Actual')
 plt.xlabel('Predicted')
-plt.title("CONFUSION MATRIX - Top 8 Predictor (Random Forest)", size=16)
+plt.title("CONFUSION MATRIX - Top 8 Predictor (Decision Tree)", size=16)
 plt.show()
 print()
 
