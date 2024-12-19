@@ -8,21 +8,18 @@ given a certain selection of characters.
 
 #import statements
 import pandas as pd
-#import numpy as np
 import matplotlib.pyplot as plt
+import nltk
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import svm
-#from sklearn.model_selection import GridSearchCV 
-#from sklearn.model_selection import RandomizedSearchCV
+from sklearn.metrics import accuracy_score
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import confusion_matrix
+import pickle
 import seaborn as sns
 from sklearn import metrics
 
@@ -64,49 +61,14 @@ X_train, X_test, y_train, y_test = train_test_split(x, y,
                                                 test_size=0.3, 
                                                 random_state=0)
 
-
 #TFIDF-vectorizing the list of characters we play
 tvec = TfidfVectorizer(sublinear_tf=True, min_df=2,
                         ngram_range=(1, 2), 
                         stop_words='english')
 
-#Our list of models to choose from
-models = {"Logistic Regression": LogisticRegression(random_state=0),
-          "Random Forest": RandomForestClassifier(random_state=0),
-          "SVM": svm.SVC(random_state=0),
-          "Decision Tree": DecisionTreeClassifier(criterion="entropy",
-             max_depth=5, random_state=0)}
-
-#hyperparamter tuning (random forest)
-'''
-param_grid = { 
-    'n_estimators': [25, 50, 100, 150], 
-    'max_features': ['sqrt', 'log2', None], 
-    'max_depth': [3, 6, 9], 
-    'max_leaf_nodes': [3, 6, 9], 
-} 
-
-grid_search = GridSearchCV(RandomForestClassifier(), 
-                           param_grid=param_grid)
-
-fitted_vectorizer = tvec.fit(X_train)
-tfidf_vectorizer_vectors = fitted_vectorizer.transform(X_train)
- 
-grid_search.fit(tfidf_vectorizer_vectors, y_train) 
-print(grid_search.best_estimator_) 
-'''
-
-#creating pipeline with the vectorizer and the classification model
-model = make_pipeline(tvec, models['Random Forest'])
+#creating pipeline with the vectorizer and the RF model
+model = make_pipeline(tvec, RandomForestClassifier(n_estimators=200, random_state=0))
 model.fit(X_train, y_train)
-
-#just seeing if we can visualize this
-'''
-tvec_weights = tvec.fit_transform(X_train)
-weights = np.asarray(tvec_weights.mean(axis=0)).ravel().tolist()
-weights_df = pd.DataFrame({'term': tvec.get_feature_names_out(), 'weight': weights})
-weights_df.to_csv('TFIDF_train.csv')
-'''
 
 #uaking predictions with the model
 
@@ -123,9 +85,10 @@ fig, ax = plt.subplots(figsize=(8,8))
 sns.heatmap(conf_mat, annot=True, cmap="Blues", fmt='d')
 plt.ylabel('Actual')
 plt.xlabel('Predicted')
-plt.title("CONFUSION MATRIX - Top 8 Predictor (Decision Tree)", size=16)
+plt.title("CONFUSION MATRIX - Top 8 Predictor (Random Forest)", size=16)
 plt.show()
 print()
+
 
 
 #creating a sample bracket of characters you play in bracket
@@ -137,3 +100,24 @@ bracket_p = model.predict_proba([bracket_str])[0][1]
 print('The characters in your bracket path are:', bracket_str)
 print('Top 8 Prediction:', bracket_calc, 'with a success probability of:',
       round((bracket_p * 100),2))
+
+#Creating model file
+
+# Save to file in the current working directory
+pkl_filename = "model.pkl"
+with open(pkl_filename, 'wb') as file:
+    pickle.dump(model, file)
+
+# Load from file
+with open(pkl_filename, 'rb') as file:
+    pickle_model = pickle.load(file)
+    
+# Calculate the accuracy score with the saved model and predict target values
+score = pickle_model.score(X_test, y_test)
+print("Test score: {0:.2f} %".format(100 * score))
+Ypredict = pickle_model.predict(X_test)
+
+##loading the model from the saved file
+pkl_filename = "model.pkl"
+with open(pkl_filename, 'rb') as f_in:
+    model = pickle.load(f_in)
