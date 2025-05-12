@@ -1,7 +1,5 @@
 
-![Didders](https://github.com/user-attachments/assets/bf9298ed-9ee4-44d5-afd6-68864da7a880)
-![Liquid Criminal](https://github.com/user-attachments/assets/234c7ec3-e449-46ff-aa53-a03d88603ee6)
-
+![BreakDance](https://github.com/user-attachments/assets/a9179fc1-577f-4383-a85b-f96ea5a5ba33)
 
 SSBU: High Level Tournament Analytics 
 (A Product by Infernape)
