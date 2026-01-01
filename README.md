@@ -6,7 +6,7 @@ SSBU: High Level Tournament Analytics
 
 This tool provides the player with a high-level analysis of their tournament performance. By filling out the spreadsheet template and running the code attached in this package, a player can view KPIs and specific character matchup data from their past online and offline tournaments (most if not all of this can be found on https://supermajor.gg/ and typing in your previous player tags). The goal of this is not only an exercise in gathering/visualizing your data, but also for players to have an even more granular view of their results and performance against certain characters.
 
-In addition to the main script (Tourney Analysis.py), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx). There is also a blank template (Tourney Data Template.xlsx), in addition to a helper notebook that pulls your offline data (Offline Transform.ipynb) and saves that data into its own table (Offline Data.xlsx) and a secondary notebook that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters (Bracket Calc.ipynb). The bracket calculation script also saves the model in a .pkl file to enable live predictions via Flask API (App.ipynb).
+In addition to the main notebook (Tourney Analysis.ipynb), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx). There is also a blank template (Tourney Data Template.xlsx), in addition to a helper notebook that pulls your offline data (Offline Transform.ipynb) and saves that data into its own table (Offline Data.xlsx) and a secondary notebook that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters and other metrics as inputs (Bracket Calc.ipynb). The bracket calculation script also saves the model in a .pkl file to enable live predictions via Flask API (App.ipynb).
 
 General Information for Filling Out the Template
 
@@ -60,4 +60,3 @@ Housekeeping
 -	When you download everything, be sure to keep the Python files and the spreadsheets all in the same folder/directory.
 -	Within the quotation marks on any read_excel() calls, put the name of your spreadsheet. This is whatever you save the Excel spreadsheet as, but make sure to keep it in .xlsx format.
 -	For recording the characters used against you, be sure to follow the criteria above.
--	To track an individual stat, you can just remove the apostrophes around lines 132-136 in Tourney Analysis.py. To make sure that it doesn’t get displayed, put 3 apostrophes before line 132 and 3 more after line 136.
