@@ -2,7 +2,7 @@
 ![BreakDance](https://github.com/user-attachments/assets/a9179fc1-577f-4383-a85b-f96ea5a5ba33)
 
 SSBU: High Level Tournament Analytics 
-(A Product by INF)
+(#INF)
 
 This tool provides the player with a high-level analysis of their tournament performance. By filling out the spreadsheet template and running the code attached in this package, a player can view KPIs and specific character matchup data from their past online and offline tournaments (most if not all of this can be found on https://supermajor.gg/ and typing in your previous player tags). The goal of this is not only an exercise in gathering/visualizing your data, but also for players to have an even more granular view of their results and performance against certain characters.
 
