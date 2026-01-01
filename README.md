@@ -4,9 +4,9 @@
 SSBU: High Level Tournament Analytics 
 (A Product by Infernape)
 
-This tool provides the player with a high-level analysis of their tournament performance. By filling out the spreadsheet template and running the code attached in this package, a player can view KPIs and specific character matchup data from their past online and offline tournaments (most if not all of this can be found on https://smashdata.gg/ and typing in your previous player tags). The goal of this is not only an exercise in gathering/visualizing your data, but also for players to have an even more granular view of their results and performance against certain characters.
+This tool provides the player with a high-level analysis of their tournament performance. By filling out the spreadsheet template and running the code attached in this package, a player can view KPIs and specific character matchup data from their past online and offline tournaments (most if not all of this can be found on https://supermajor.gg/ and typing in your previous player tags). The goal of this is not only an exercise in gathering/visualizing your data, but also for players to have an even more granular view of their results and performance against certain characters.
 
-In addition to the main script (Tourney Analysis.py), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx). There is also a blank template (Tourney Data Template.xlsx), in addition to a helper script that pulls your offline data (Offline Transform.py) and saves that data into its own table (Offline Data.xlsx) and a secondary script that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters (Bracket Calc.py). The bracket calculation script also saves the model in a .pkl file to enable predictions via Flask API.
+In addition to the main script (Tourney Analysis.py), this git repo (https://github.com/mn-INF/SSBU.git) contains a spreadsheet of my data as an example (Tourney Data.xlsx). There is also a blank template (Tourney Data Template.xlsx), in addition to a helper notebook that pulls your offline data (Offline Transform.ipynb) and saves that data into its own table (Offline Data.xlsx) and a secondary notebook that calculates your chances of qualifying for top 8 at a tournament, with a given bracket path of characters (Bracket Calc.ipynb). The bracket calculation script also saves the model in a .pkl file to enable live predictions via Flask API (App.ipynb).
 
 General Information for Filling Out the Template
 
@@ -50,7 +50,11 @@ Character Matchups
 •	For offline tournaments you just need to remember what characters your opponent played.
 •	This streamlines the process of figuring out which characters you do well against and which ones need more attention in terms of matchup experience.
 
-Next Steps
+Using the App.ipynb Notebook
+
+• Before you run through the whole notebook, be sure that you have the Postman App installed on your Desktop and that you have all the necessary Flask dependencies installed before importing.
+• On the Postman App, navigate to "Create New Request" and create a new window for a request. The way I designed the App, any bracket runs would need to be input as a dictionary; so, navigate to "Body" and click on the "raw" option to copy and paste over the dictionary with the values you want to test. Make sure your dictionary has key-value pairs with the values being lists, and that any strings you use have DOUBLE QUOTES. Then hit the "Send" button and let it fly!
+
 
 Right now, the tournament data has to be input manually into a spreadsheet with the column names above as a template. I’m not sure if there is a way to automate the data collection, but I’ll keep looking into that. I hope this makes the improvement process easier!
 
